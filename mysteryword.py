@@ -7,7 +7,6 @@ def display_letter(letter, guesses):
         return "_"  
      
 
-
 def get_word():
     with open("words.txt") as words_list:
         words = words_list.readlines()
@@ -22,32 +21,37 @@ def clean_text():
     for char in upper_word:
         if char in all_letters:
             word_list.append(char)
-    # print(word_list)        
+    print(word_list)        
     return word_list 
 
-    
+def grab_guess():
+    guess = input("Guess a letter: ").upper().strip()  
+    return guess  
 
-def guess_input(current_guesses):  
+def guess_input(guess, current_guesses):   
     alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    guess = input("Guess a letter: ").upper().strip()
     if len(guess) >= 2 or guess == "":
-        print("Enter a single letter") 
+        print("Enter a single letter")
+        grab_guess()
     elif guess in current_guesses:
         print("You've already entered that letter")
+        grab_guess()
     elif guess not in alphabet:
         print ("Character entered is not a letter")   
+        grab_guess()
     else:         
         return guess 
 
 
-
 def game_loop(words, current_guesses):
+    
     guess_count = 8 
     output = [] 
     while guess_count != 0:
         if output != words:
-            letter = guess_input(current_guesses)
-            check = check_letter(words, letter)
+            guess = grab_guess()
+            letter = guess_input(guess, current_guesses)
+            check = check_letter(words, letter) 
             current_guesses.append(letter) 
             for letter in words:
                 output.append(display_letter(letter, current_guesses))
@@ -69,11 +73,10 @@ def game_loop(words, current_guesses):
             
 def play_again():  
     play_again = input("Do you want to play again? Y or N? ")
-    if play_again == "Y": 
+    if play_again == "Y" or "y": 
         play_game()  
-    elif play_again == "N":
+    elif play_again == "N" or "n":
         raise SystemExit           
-
 
         
 
