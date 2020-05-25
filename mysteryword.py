@@ -11,6 +11,7 @@ def get_word():
     with open("words.txt") as words_list:
         words = words_list.readlines()
         return (random.choice(words)) 
+   
      
 
 def clean_text():
@@ -24,9 +25,22 @@ def clean_text():
     print(word_list)        
     return word_list 
 
+
+# def choose_difficulty(words):
+#     level = input("What difficulty would you like to play on? (E)asy, (N)ormal, or (H)ard? ") 
+#     new_word_levels = []
+#     if level == "E":
+#         for entries in words:
+#             if len(words) >=4 and len(words) <= 6:
+#                 new_word_levels.append(words)
+#         # print(new_word_levels)
+#         return(new_word_levels)      
+
+
 def grab_guess():
     guess = input("Guess a letter: ").upper().strip()  
     return guess  
+
 
 def guess_input(guess, current_guesses):   
     alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -64,19 +78,19 @@ def game_loop(words, current_guesses):
             guess_count -= 1 
             print(f"You have {guess_count} guesses left")   
         if output == words: 
-            print("You won the game!") 
+            print("Congrats! You won the game!") 
             play_again()
         output = [] 
         if guess_count == 0:
-            print("You lost the game")
+            print("I am sorry, you are out of guesses. The word was: ", words)
             play_again()          
             
 def play_again():  
     play_again = input("Do you want to play again? Y or N? ")
-    if play_again == "Y" or "y": 
+    if play_again == "Y" or play_again == "y": 
         play_game()  
-    elif play_again == "N" or "n":
-        raise SystemExit           
+    elif play_again != "Y" or play_again != "y": 
+        raise SystemExit          
 
         
 
@@ -88,13 +102,26 @@ def check_letter(words, letter):
             
 
     
+def start_game ():
+    print("")
+    print("Welcome to Mystery Word Game!")
+    print("")
+
+    
+
+
+
+
 
 
 
     
 
 def play_game (): 
+    start_game() 
     words = clean_text()
+    # choose_difficulty(words) 
+    print(f"Your word is {len(words)} letters long!")
     current_guesses = []
     game_loop(words, current_guesses) 
 
@@ -115,67 +142,10 @@ play_game()
 
 
 
+# if __name__ == "__main__":
+#     play_game()
 
-
-
-
-
-
-
-
-
-# def easy_words(words):
-#     easy_words = []
-#     for word in words:
-#         if len(word) >= 4 and len(word) <=6:
-#             easy_words.append(word)
-#     return easy_words 
-#     print (easy_words) 
-   
-
-
-# def normal_words(words):
-#     normal_words = []
-#     for word in words:
-#         if len(word) >= 6 and len(word) <= 8:
-#             normal_words.append(word)
-#     return normal_words   
- 
-
-# def hard_words(words):
-#     hard_words = []
-#     for word in words:
-#         if len(word) >= 8:
-#             hard_words.append(word)
-#     return hard_words  
-
-
-# def input_option(prompt, options):
-#     while True:
-#         try:
-#             str_input = input(prompt)
-#             if str_input not in options:
-#                 raise ValueError
-#             return str_input
-#         except ValueError:
-#             print ("That is not a valid input")
-#         else:
-#             return difficulty         
-# difficulty = input_option("What level do you want to play on? (E)asy, (M)edium, or (H)ard? ", ["E", "M", "H"])            
-
-
-# def make_mystery_word(difficulty):
-#     if difficulty == "E":
-#         return (easy_words(get_word()))
-
-#     elif difficulty == "N":
-#             return (normal_words(get_word()))
-
-#     elif difficulty == "H":
-#             return (hard_words(get_word()))  
-
-# make_mystery_word(difficulty)                    
-        
+  
 
 
 
