@@ -9,32 +9,40 @@ def display_letter(letter, guesses):
 
 def get_word():
     with open("words.txt") as words_list:
-        words = words_list.readlines()
-        return (random.choice(words)) 
+        words = words_list.readlines() 
+        return words 
    
      
 
 def clean_text():
-    new_word = get_word()
+    new_word = choose_difficulty()
     upper_word = new_word.upper()
     all_letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     word_list = [] 
     for char in upper_word:
         if char in all_letters:
-            word_list.append(char)
-    print(word_list)        
+            word_list.append(char)        
     return word_list 
 
 
-# def choose_difficulty(words):
-#     level = input("What difficulty would you like to play on? (E)asy, (N)ormal, or (H)ard? ") 
-#     new_word_levels = []
-#     if level == "E":
-#         for entries in words:
-#             if len(words) >=4 and len(words) <= 6:
-#                 new_word_levels.append(words)
-#         # print(new_word_levels)
-#         return(new_word_levels)      
+def choose_difficulty():
+    new_word_list = get_word()
+    level = input("What difficulty would you like to play on? (E)asy, (N)ormal, or (H)ard? ") 
+    new_word_levels = []
+    if level == "E":
+        for entries in new_word_list:
+            if len(entries) >= 4 and len(entries) <= 6:
+                new_word_levels.append(entries) 
+    if level == "N":
+        for entries in new_word_list:
+            if len(entries) >= 6 and len(entries) <= 8:
+                new_word_levels.append(entries) 
+    if level == "H":
+        for entries in new_word_list:
+            if len(entries) >= 8:
+                new_word_levels.append(entries)                       
+
+    return(random.choice(new_word_levels))      
 
 
 def grab_guess():
@@ -107,52 +115,19 @@ def start_game ():
     print("Welcome to Mystery Word Game!")
     print("")
 
-    
-
-
-
-
-
-
 
     
 
 def play_game (): 
     start_game() 
     words = clean_text()
-    # choose_difficulty(words) 
     print(f"Your word is {len(words)} letters long!")
     current_guesses = []
     game_loop(words, current_guesses) 
 
 
-        
 
 
-
-          
-
-play_game() 
-
-
-
-
-
-
-
-
-
-# if __name__ == "__main__":
-#     play_game()
-
-  
-
-
-
-
-
-
-
-   
-
+if __name__ == "__main__":
+    play_game()
 
